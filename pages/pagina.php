@@ -1,6 +1,6 @@
 <?php
 
-require 'util/conexao.php';
+require '../util/conexao.php';
 
 if (!empty($_POST)) {
   //Erros de validação
@@ -93,11 +93,11 @@ if (!empty($_POST)) {
   {
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO cadp (p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO perguntas (p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, codigo_usuario) VALUES (?,?,?,?,?,?,?,?,?,?, ?)";
     $q = $pdo->prepare($sql);
     $q->execute(array($p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10));
     Banco::desconectar();
-    header("Location: index.php");
+    header("Location: pagina.php");
   }
 }
 ?>
@@ -189,9 +189,9 @@ if (!empty($_POST)) {
   <title>Dash | Dash</title>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="static/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../static/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="static/css/adminlte.min.css">
+  <link rel="stylesheet" href="../static/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -267,13 +267,13 @@ if (!empty($_POST)) {
               <h3 class="card-title">Pesquisa</h3>
             </div>
 
-            <form name="formperguntas" onsubmit="formularioperg" action="index.php" method="post">
+            <form name="formperguntas" onsubmit="formularioperg" action="pagina.php" method="post">
               <div class="card-body">
 
                 <h5>1. Você acredita que as pessoas envolvidas com a gestão possuem o conhecimento necessário para exercer o cargo?</h5>
                 <div class="form-group <?php echo !empty($p1Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p1sim" name="p1" value="Sim"><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p1sim" name="p1" value="Sim"  required="p1"><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -285,7 +285,7 @@ if (!empty($_POST)) {
                 <h5>2. A prioridade das tarefas é definida de forma clara para toda a equipe?</h5>
                 <div class="form-group <?php echo !empty($p2Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p2sim" name="p2" value="Sim"/><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p2sim" name="p2" value="Sim"  required="p2"><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -297,7 +297,7 @@ if (!empty($_POST)) {
                 <h5>3. As pessoas envolvidas com a gestão demonstram que gostam do que fazem?</h5>
                 <div class="form-group <?php echo !empty($p3Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p3sim" name="p3" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p3sim" name="p3" value="Sim" required="p3"><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -308,11 +308,11 @@ if (!empty($_POST)) {
               <h5>4. As pessoas envolvidas com a gestão se dedicam ao trabalho?</h5>
                 <div class="form-group <?php echo !empty($p4Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p4sim" name="p4" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p4sim" name="p4" value="Sim" required="p4"><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
-                    <label class="radioContainer">Não<input type="radio" id="p4nao" name="p4" value="Nao"  /><span class="circle"></span>
+                    <label class="radioContainer">Não<input type="radio" id="p4nao" name="p4" value="Nao"/><span class="circle"></span>
                     </label><hr class="hr3">
                   </div>
                 </div>
@@ -320,7 +320,7 @@ if (!empty($_POST)) {
                 <h5>5. O modelo atual da gestão é inspirador para você?</h5>
                 <div class="form-group <?php echo !empty($p5Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p5sim" name="p5" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p5sim" name="p5" value="Sim" required="p5" /><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -332,7 +332,7 @@ if (!empty($_POST)) {
                 <h5>6. Você sente que há suporte para suas tarefas do dia a dia?</h5>
                 <div class="form-group <?php echo !empty($p6Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p6sim" name="p6" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p6sim" name="p6" value="Sim" required="p6" /><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -344,7 +344,7 @@ if (!empty($_POST)) {
                 <h5>7. Você se sente alinhado à cultura organizacional?</h5>
                 <div class="form-group <?php echo !empty($p7Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p7sim" name="p7" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p7sim" name="p7" value="Sim" required="p7" /><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -356,7 +356,7 @@ if (!empty($_POST)) {
                 <h5>8. Você acredita na oportunidade de crescimento em sua carreira?</h5>
                 <div class="form-group <?php echo !empty($p8Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p8sim" name="p8" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p8sim" name="p8" value="Sim" required="p8" /><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -368,7 +368,7 @@ if (!empty($_POST)) {
                 <h5>9. Existe um relacionamento de cooperação entre os departamentos da empresa?</h5>
                 <div class="form-group <?php echo !empty($p9Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p9sim" name="p9" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p9sim" name="p9" value="Sim" required="p9" /><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">
@@ -380,7 +380,7 @@ if (!empty($_POST)) {
                 <h5>10. Você se sente respeitado pelo seu chefe/gestor/gerente?</h5>
                 <div class="form-group <?php echo !empty($p10Erro) ? 'error ' : ''; ?> ">
                   <div class="form-check">
-                    <label class="radioContainer">Sim<input type="radio" id="p10sim" name="p10" value="Sim" /><span class="circle"></span>
+                    <label class="radioContainer">Sim<input type="radio" id="p10sim" name="p10" value="Sim" required="p10" /><span class="circle"></span>
                     </label>
                   </div>
                   <div class="form-check">

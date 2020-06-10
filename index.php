@@ -42,11 +42,11 @@ if (empty($nome)) {
 if ($validacao) {
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO cadp (nome, lotacao, cpf, matricula) VALUES(?,?,?,?)";
+    $sql = "INSERT INTO usuario (nome, lotacao, cpf, matricula) VALUES(?,?,?,?)";
     $q = $pdo->prepare($sql);
     $q->execute(array($nome, $lotacao, $cpf, $matricula));
     Banco::desconectar();
-    header("Location: index.php");
+    header("Location: pages/pagina.php");
   }
 }
 ?>
